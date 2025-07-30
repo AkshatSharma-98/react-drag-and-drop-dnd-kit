@@ -1,6 +1,6 @@
 // File: useFlattenItems.ts
 import { useMemo } from "react";
-import type { ListItem } from "./getNewItems";
+import type { ListItem } from "../types";
 
 function flattenItemsFn(items: ListItem[]): ListItem[] {
   return items.reduce<ListItem[]>((accumulator, item) => {

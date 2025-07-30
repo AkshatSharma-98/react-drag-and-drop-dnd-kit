@@ -1,14 +1,4 @@
-export interface ListItem {
-    id: string;
-    text: string;
-    children?: ListItem[];
-    ancestorIDs?: string[];
-}
-
-export interface FlattenedItem {
-    id: string;
-    ancestorIDs?: string[];
-}
+import type { FlattenedItem, ListItem } from "../../types";
 
 /**
  * Reorders listItems based on drag events between activeId and overId.
@@ -103,7 +93,7 @@ function getMultiLevelUpdatedItems(
 function getMultiLevelUpdatedItemsRecursive(
     items: ListItem[] | undefined,
     targetId: string,
-    holder: any,
+    holder: { activeElement?: Pick<ListItem, 'id' | 'text'> },
     mode: 'active' | 'over',
     dest?: { overElement?: ListItem },
     overId?: string

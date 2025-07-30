@@ -4,13 +4,9 @@ import type { DragEndEvent } from '@dnd-kit/core';
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import NestedListItem from './NestedListItem';
-import useFlattenItems from './utils';
+import useFlattenItems from '../../utils/utils';
 import getUpdatedListItems from './getNewItems';
-
-interface NestedListComponentProps {
-  listItems: any[];
-  setListItems: React.Dispatch<React.SetStateAction<any[]>>;
-}
+import type { NestedListComponentProps } from '../../types';
 
 const NestedListComponent: React.FC<NestedListComponentProps> = ({ listItems, setListItems }) => {
   const flattenedItems = useFlattenItems(listItems);
@@ -22,6 +18,7 @@ const NestedListComponent: React.FC<NestedListComponentProps> = ({ listItems, se
     }
 
     const { ancestorIDs } = (over.data.current || {}) as { ancestorIDs?: string[] };
+    console.log(ancestorIDs)
     if (ancestorIDs && ancestorIDs.includes(active.id as string)) {
       alert('Cannot drop item into descendant');
       return;

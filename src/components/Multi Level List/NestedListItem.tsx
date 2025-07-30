@@ -3,18 +3,11 @@ import React from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { useDroppable } from '@dnd-kit/core';
-
-interface NestedListItemProps {
-  listItem: {
-    id: string;
-    text: string;
-    ancestorIDs?: string[];
-  };
-}
+import type { NestedListItemProps } from '../../types';
 
 const NestedListItem: React.FC<NestedListItemProps> = ({ listItem }) => {
   const { ancestorIDs, text, id } = listItem;
-  const hasAncestors = !!ancestorIDs && ancestorIDs.length > 0;
+  const hasAncestors = ancestorIDs && ancestorIDs.length > 0;
 
   const {
     attributes,
@@ -24,7 +17,10 @@ const NestedListItem: React.FC<NestedListItemProps> = ({ listItem }) => {
     transition,
   } = useSortable({ id, data: { ancestorIDs }, animateLayoutChanges: () => false });
 
-  const { isOver, setNodeRef: setDroppableRef } = useDroppable({ id });
+  const { isOver, setNodeRef: setDroppableRef } = useDroppable({ 
+    id,
+    data: {ancestorIDs}
+   });
 
   const setRefs = (node: HTMLElement | null) => {
     setDraggableRef(node);
